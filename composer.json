@@ -4,7 +4,7 @@
     "require": {
         "php": "^8.0",
         "ext-json": "*",
-        "jpi/utils": "0.x-dev"
+        "jpi/utils": "1.x-dev"
     },
     "autoload": {
         "psr-4": {
