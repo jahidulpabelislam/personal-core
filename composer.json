@@ -1,5 +1,5 @@
 {
-    "name": "jpi/site",
+    "name": "jpi/personal-core",
     "description": "Personal library with reusable bits for my sites.",
     "require": {
         "php": "^8.0",
