@@ -2,11 +2,7 @@ const gulp = require("gulp");
 
 const fs = require("fs");
 
-const include = require("gulp-include");
-
 const sourcemaps = require("gulp-sourcemaps");
-
-const uglify = require("gulp-uglify");
 
 const cleanCss = require("gulp-clean-css");
 const autoPrefix = require("gulp-autoprefixer");
@@ -42,6 +38,9 @@ gulp.task("reload-listen", function(callback) {
 });
 
 if (fs.existsSync(jsDevDir)) {
+    const include = require("gulp-include");
+    const uglify = require("gulp-uglify");
+
     gulp.task("clean-js-folder", function(callback) {
         del(`${jsDir}/*.js`);
         callback();
