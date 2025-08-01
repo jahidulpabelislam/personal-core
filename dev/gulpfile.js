@@ -69,7 +69,7 @@ if (fs.existsSync(jsDevDir)) {
     defaultTasks.push("js");
     gulp.task("js", gulp.series(["clean-js-folder", "compile-js"]));
 
-    defaultTasks.push("compile-js",);
+    defaultTasks.push("compile-js");
     defaultTasks.push("watch-js");
 }
 
