@@ -1,5 +1,7 @@
 const gulp = require("gulp");
 
+const fs = require("fs");
+
 const include = require("gulp-include");
 
 const sourcemaps = require("gulp-sourcemaps");
@@ -31,6 +33,7 @@ for (const breakpoint in breakpoints) {
     scssVariables[`${breakpoint}-width`] = breakpoints[breakpoint];
 }
 
+let watchTasks = [];
 let defaultTasks = [];
 
 gulp.task("reload-listen", function(callback) {
@@ -38,32 +41,37 @@ gulp.task("reload-listen", function(callback) {
     callback();
 });
 
-gulp.task("clean-js-folder", function(callback) {
-    del(`${jsDir}/*.js`);
-    callback();
-});
+if (fs.existsSync(jsDevDir)) {
+    gulp.task("clean-js-folder", function(callback) {
+        del(`${jsDir}/*.js`);
+        callback();
+    });
 
-gulp.task("compile-js", function() {
-    return gulp.src(`${jsDevDir}/*.js`)
-               .pipe(sourcemaps.init())
-               .pipe(include({
-                   hardFail: true,
-               }))
-               .pipe(uglify())
-               .pipe(sourcemaps.write("maps/"))
-               .pipe(gulp.dest(`${jsDir}/`))
-               .pipe(livereload())
-        ;
-});
+    gulp.task("compile-js", function() {
+        return gulp.src(`${jsDevDir}/*.js`)
+                   .pipe(sourcemaps.init())
+                   .pipe(include({
+                       hardFail: true,
+                   }))
+                   .pipe(uglify())
+                   .pipe(sourcemaps.write("maps/"))
+                   .pipe(gulp.dest(`${jsDir}/`))
+                   .pipe(livereload())
+            ;
+    });
 
-gulp.task("watch-js", function(callback) {
-    gulp.watch(`${jsDevDir}/**/*.js`, gulp.parallel("compile-js"));
-    callback();
-});
+    gulp.task("watch-js", function(callback) {
+        gulp.watch(`${jsDevDir}/**/*.js`, gulp.parallel("compile-js"));
+        callback();
+    });
 
-// Get JavaScript files ready for production
-defaultTasks.push("js");
-gulp.task("js", gulp.series(["clean-js-folder", "compile-js"]));
+    // Get JavaScript files ready for production
+    defaultTasks.push("js");
+    gulp.task("js", gulp.series(["clean-js-folder", "compile-js"]));
+
+    defaultTasks.push("compile-js",);
+    defaultTasks.push("watch-js");
+}
 
 gulp.task("clean-css-folder", function(callback) {
     del(`${cssDir}/*.css`);
@@ -103,6 +111,6 @@ defaultTasks.push("css");
 gulp.task("css", gulp.series(["clean-css-folder", "compile-css"]));
 
 // Watch files for changes to then compile
-gulp.task("watch", gulp.series(["reload-listen", "compile-css", "compile-js", "watch-scss", "watch-js"]));
+gulp.task("watch", gulp.series(["reload-listen", "compile-css", "watch-scss"].concat(watchTasks)));
 
 gulp.task("default", gulp.series(defaultTasks));
