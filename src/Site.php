@@ -64,7 +64,7 @@ class Site implements BrandInterface {
 
     public function getEnvironment(): string {
         if (is_null($this->environment)) {
-            $this->environment = getenv("APPLICATION_ENV") ?? "production";
+            $this->environment = getenv("APPLICATION_ENV") ?: "production";
         }
 
         return $this->environment;
