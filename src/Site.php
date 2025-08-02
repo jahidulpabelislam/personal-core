@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace JPI;
 
 define("JPI_CORE_ROOT", __DIR__ . "/..");
+define("ROOT", __DIR__ . "/../../../..");
+define("PUBLIC_ROOT", __DIR__ . "/../../../../public");
 
 use JPI\Utils\Singleton;
 use JPI\Utils\URL;
