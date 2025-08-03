@@ -8,12 +8,11 @@ define("APP_ROOT", __DIR__ . "/../../../..");
 define("PUBLIC_ROOT", __DIR__ . "/../../../../public");
 define("JPI_CORE_ROOT", __DIR__ . "/..");
 
-use JPI\Utils\Singleton;
 use JPI\Utils\URL;
 
 class App implements BrandInterface {
 
-    use Singleton;
+    use \JPI\Utils\Singleton;
 
     protected ?string $environment = null;
 
