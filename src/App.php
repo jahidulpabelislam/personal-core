@@ -31,7 +31,8 @@ class App implements BrandInterface {
             $filepath = URL::removeTrailingSlash($root) . URL::addLeadingSlash($src);
             if (file_exists($filepath)) {
                 $ver = date("mdYHi", filemtime($filepath));
-            } else {
+            }
+            else {
                 $ver = "1";
             }
         }
