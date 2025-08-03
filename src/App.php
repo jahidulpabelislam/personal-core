@@ -11,7 +11,7 @@ define("JPI_CORE_ROOT", __DIR__ . "/..");
 use JPI\Utils\Singleton;
 use JPI\Utils\URL;
 
-class Site implements BrandInterface {
+class App implements BrandInterface {
 
     use Singleton;
 
