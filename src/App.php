@@ -14,6 +14,12 @@ class App implements BrandInterface {
 
     use \JPI\Utils\Singleton;
 
+    public const DOMAINS = [
+        "production" => "jahidulpabelislam.com",
+        "staging" => "staging.jahidulpabelislam.com",
+        "development" => "jahidulpabelislam.local",
+    ];
+
     protected ?string $environment = null;
 
     protected ?string $currentURL = null;
