@@ -130,7 +130,7 @@ class App implements BrandInterface {
     }
 
     public function getBrandColour(): string {
-        return $this->getColours()['brand'];
+        return $this->getColours()["brand"];
     }
 
     public function config(): Config {
