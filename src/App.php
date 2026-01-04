@@ -73,7 +73,7 @@ class App implements BrandInterface {
     }
 
     public function getEnvironment(): string {
-        if (is_null($this->environment)) {
+        if ($this->environment === null) {
             $this->environment = getenv("APPLICATION_ENV") ?: "production";
         }
 
@@ -113,7 +113,7 @@ class App implements BrandInterface {
      * @return URL
      */
     public function getCurrentURL(bool $isFull = false): URL {
-        if (is_null($this->currentURL)) {
+        if ($this->currentURL === null) {
             $this->currentURL = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
         }
 
@@ -121,7 +121,7 @@ class App implements BrandInterface {
     }
 
     public function getColours(): array {
-        if (is_null($this->colours)) {
+        if ($this->colours === null) {
             $colours = file_get_contents(__DIR__ . "/../config/colours.json");
             $this->colours = json_decode($colours, true);
         }
