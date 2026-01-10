@@ -11,7 +11,7 @@ final class Config {
 
     protected array $values = [];
 
-    public function __set(string $key, mixed $value): void {
+    public function __set(string $key, self|array|string|float|int $value): void {
         if (is_array($value)) {
             $new = new self();
 
@@ -24,7 +24,7 @@ final class Config {
         $this->values[$key] = $value;
     }
 
-    public function __get(string $key): mixed {
+    public function __get(string $key): self|array|string|float|int|null {
         return $this->values[$key] ?? null;
     }
 }
