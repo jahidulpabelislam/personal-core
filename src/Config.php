@@ -12,6 +12,15 @@ final class Config {
     protected array $values = [];
 
     public function __set(string $key, mixed $value): void {
+        if (is_array($value)) {
+            $new = new self();
+
+            foreach ($value as $k => $v) {
+                $new->$k = $v;
+            }
+
+            $value = $new;
+        }
         $this->values[$key] = $value;
     }
 
