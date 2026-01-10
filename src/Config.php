@@ -7,30 +7,15 @@ namespace JPI;
 /**
  * Stores settings for the application.
  */
-
 final class Config {
-
-    use \JPI\Utils\Singleton;
 
     protected array $values = [];
 
-    protected function __construct() {
-        $config = $this;
-
-        $environment = App::get()->getEnvironment();
-
-        include_once APP_ROOT . "/assets/config.php";
-
-        if (file_exists(APP_ROOT . "/assets/config.local.php")) {
-            include_once APP_ROOT . "/assets/config.local.php";
-        }
-    }
-
-    public function __set(string $key, $value): void {
+    public function __set(string $key, mixed $value): void {
         $this->values[$key] = $value;
     }
 
-    public function __get(string $key) {
+    public function __get(string $key): mixed {
         return $this->values[$key] ?? null;
     }
 }
