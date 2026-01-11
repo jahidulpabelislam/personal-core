@@ -11,15 +11,15 @@ final class Config {
 
     protected array $values = [];
 
+    protected function __construct(array $values = []) {
+        foreach ($values as $key => $value) {
+            $this->$key = $value;
+        }
+    }
+
     public function __set(string $key, self|array|string|float|int $value): void {
         if (is_array($value)) {
-            $new = new self();
-
-            foreach ($value as $k => $v) {
-                $new->$k = $v;
-            }
-
-            $value = $new;
+            $value = new self($value);
         }
         $this->values[$key] = $value;
     }
