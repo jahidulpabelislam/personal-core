@@ -24,7 +24,7 @@ final class Config {
         $this->values[$key] = $value;
     }
 
-    public function __get(string $key): self|array|string|float|int|null {
+    public function __get(string $key): self|string|float|int|null {
         return $this->values[$key] ?? null;
     }
 }
