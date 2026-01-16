@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace JPI;
 
+use JPI\Utils\Arrayable;
+
 /**
  * Stores settings for the application.
  */
-final class Config {
+final class Config implements Arrayable {
 
     protected array $values = [];
 
@@ -26,5 +28,17 @@ final class Config {
 
     public function __get(string $key): self|string|float|int|null {
         return $this->values[$key] ?? null;
+    }
+
+    public function toArray(): array {
+        $array = [];
+        foreach ($this->values as $key => $value) {
+            if ($value instanceof self) {
+                $value = $value->toArray();
+            }
+            $array[$key] = $value;
+        }
+
+        return $array;
     }
 }
