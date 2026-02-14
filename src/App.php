@@ -25,6 +25,7 @@ class App implements BrandInterface {
     protected ?string $currentURL = null;
 
     protected ?array $colours = null;
+    protected ?Config $config = null;
 
     public static function asset(URL|string $src, ?string $ver = null, string $root = PUBLIC_ROOT): URL {
         if ($ver === null) {
@@ -134,6 +135,20 @@ class App implements BrandInterface {
     }
 
     public function config(): Config {
-        return Config::get();
+        if ($this->config === null) {
+            $config = new Config();
+
+            $environment = App::get()->getEnvironment();
+
+            include_once APP_ROOT . "/assets/config.php";
+
+            if (file_exists(APP_ROOT . "/assets/config.local.php")) {
+                include_once APP_ROOT . "/assets/config.local.php";
+            }
+
+            $this->config = $config;
+        }
+
+        return $this->config;
     }
 }
